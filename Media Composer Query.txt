@@ -1,0 +1,109 @@
+create table song_master(
+song_id number(6) primary key, 
+song_name varchar2(50),
+song_duration varchar2(20),
+created_by number(6),
+created_on date,
+updated_by number(6),
+updated_on date,
+song_deletedflag char(1) check (song_deletedflag in ('Y','N'))
+);
+
+
+
+insert into song_master(song_id,song_name,song_duration,created_by,created_on,song_deletedflag) 
+values (1002,'Jab Tak Hai Jaan','3:42',100000,sysdate,'N');
+
+
+
+
+
+create sequence song_id_seq start with 3000 increment by 1;
+
+
+
+create table composer_master(
+composer_id number(6) primary key, 
+composer_name varchar2(50) not null,
+composer_borndate date,
+composer_dieddate date,
+composer_caeipinumber varchar2(10),
+composer_musicsocietyid varchar(10),
+created_by number(6),
+created_on date,
+updated_by number(6),
+updated_on date,
+composer_deletedflag char(1) check (composer_deletedflag in ('Y','N'))
+);
+
+
+create sequence composer_id_seq start with 3000 increment by 1;
+
+
+create table artist_master(
+artist_id number(6) primary key, 
+artist_name varchar2(50) not null,
+artist_type char(1),
+artist_borndate date,
+artist_dieddate date,
+created_by number(6),
+created_on date,
+updated_by number(6),
+updated_on date,
+artist_deletedflag char(1) check (artist_deletedflag in ('Y','N'))
+);
+
+
+create sequence artist_id_seq start with 1000 increment by 1;
+
+
+
+create table artist_song_assoc(
+artist_id number(6),
+song_id number(6),
+created_by number(6),
+created_on date,
+updated_by number(6),
+updated_on date
+);
+
+
+
+create table composer_song_assoc(
+composer_id number(6),
+song_id number(6),
+created_by number(6),
+created_on date,
+updated_by number(6),
+updated_on date
+);
+
+
+
+create table user_master(
+user_id number(6) primary key,
+user_password varchar2(20) not null,
+created_by number(6),
+created_on date,
+updated_by number(6),
+updated_on date,
+user_type char(1) check (user_type in ('A','U'))
+);
+
+
+create table MusicSociety_Master(
+composer_musicsocietyid varchar(10),
+composer_musicsocietyname varchar2(50)
+);
+
+
+
+insert into musicsociety_master values('ABC', 'FOSSILS');
+insert into musicsociety_master values('XYZ', 'BHOOMI');
+
+
+
+insert into user_master (user_id,user_password,user_type) values (100001,'root1', 'A');
+insert into user_master (user_id,user_password,user_type) values (100000,'root', 'A');
+
+insert into user_master(user_id,user_password,created_by,created_on,user_type) values(200000,'user1',100000,sysdate,'U');
